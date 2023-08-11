@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myvolemptydir
+spec:
+  containers:
+  - name: c1                                         # first container name
+    image: centos                                    # first image name
+    command: ["/bin/bash", "-c", "sleep 15000"]
+    volumeMounts:                                    # Mount definition inside the container
+      - name: xchange
+        mountPath: "/tmp/xchange"                    # path inside the container where the "xchange" volume will be mounted
+  - name: c2                                         # second container name
+    image: centos                                    # first image name
+    command: ["/bin/bash", "-c", "sleep 10000"]
+    volumeMounts:                                    # Volume mounts for this container.
+      - name: xchange
+        mountPath: "/tmp/data"
+  volumes:                                                   
+  - name: xchange
+    emptyDir: {}                                    # An emptyDir volume is a temporary shared storage for containers within a Pod, existing only as long as the Pod is running

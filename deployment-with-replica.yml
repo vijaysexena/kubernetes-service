@@ -1,0 +1,19 @@
+kind: Deployment     # Deployment is used to manage the deployment and scaling of pods in a declarative way
+apiVersion: apps/v1
+metadata:
+   name: mydeployments
+spec:
+   replicas: 2        # desired number of replicas for the Pod template
+   selector:     
+    matchLabels:
+     name: deployment
+   template:
+     metadata:
+       name: testpod
+       labels:       # selectors values need to match the labels values Specified in the pod template
+         name: deployment
+     spec:
+      containers:
+        - name: c00
+          image: ubuntu
+          command: ["/bin/bash", "-c", "while true; do echo Technical-Guftgu; sleep 5; done"]
